@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane dividerPositions="0.17" orientation="VERTICAL" prefHeight="540.0" prefWidth="765.0"
+           xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.nekitvp.iakova.HelloController">
+    <items>
+        <!-- Верхняя часть: табло с очками и названиями команд -->
+        <AnchorPane fx:id="scoreboardPane" prefHeight="140.0" prefWidth="765.0" style="-fx-background-color: black;">
+            <children>
+                <HBox alignment="CENTER" spacing="10"
+                      AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
+                      AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <!-- Команда 1 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName1" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Синяя" textFill="#1E90FF"/>
+                        <Label fx:id="teamScore1" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin1" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 2 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName2" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Красная" textFill="#FF4500"/>
+                        <Label fx:id="teamScore2" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin2" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 3 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName3" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Зеленая" textFill="#32CD32"/>
+                        <Label fx:id="teamScore3" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin3" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 4 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName4" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Серая" textFill="#808080"/>
+                        <Label fx:id="teamScore4" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin4" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 5 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName5" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Желтая" textFill="#FFD700"/>
+                        <Label fx:id="teamScore5" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin5" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 6 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName6" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Оранжевая" textFill="#FF8C00"/>
+                        <Label fx:id="teamScore6" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin6" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 7 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName7" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Фиолетовая" textFill="#8A2BE2"/>
+                        <Label fx:id="teamScore7" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin7" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                    <!-- Команда 8 -->
+                    <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                        <Label fx:id="teamName8" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Розовая" textFill="#FF1493"/>
+                        <Label fx:id="teamScore8" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0" textFill="white"/>
+                        <ImageView fx:id="teamCoin8" fitHeight="80" fitWidth="80" preserveRatio="true" />
+                    </VBox>
+                </HBox>
+            </children>
+        </AnchorPane>
+
+        <!-- Нижняя часть: StackPane с экранами -->
+        <AnchorPane prefHeight="400.0" prefWidth="765.0">
+            <children>
+                <StackPane fx:id="rootPane" style="-fx-pref-width: 600px; -fx-pref-height: 400px;"
+                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <AnchorPane fx:id="screen1" style="-fx-background-color: lightblue;">
+                        <Label layoutX="250" layoutY="180" text="Экран 1" />
+                    </AnchorPane>
+                    <AnchorPane fx:id="screen2" style="-fx-background-color: lightgreen;">
+                        <Label layoutX="250" layoutY="180" text="Экран 2" />
+                    </AnchorPane>
+                    <AnchorPane fx:id="screen3" style="-fx-background-color: lightcoral;">
+                        <Label layoutX="250" layoutY="180" text="Экран 3" />
+                    </AnchorPane>
+                    <AnchorPane fx:id="screen4" style="-fx-background-color: lightyellow;">
+                        <Label layoutX="250" layoutY="180" text="Экран 4" />
+                    </AnchorPane>
+                </StackPane>
+            </children>
+        </AnchorPane>
+    </items>
+</SplitPane>
