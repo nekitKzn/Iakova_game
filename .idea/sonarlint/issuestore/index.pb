@@ -34,3 +34,15 @@ Q.idea/sonarlint/securityhotspotstore/5/2/526d41f7113af1f313c65f654de5f518d56fee
 Q.idea/sonarlint/securityhotspotstore/f/0/f07866736216be0ee2aba49e392191aeae700a35,2/5/25f6469773b9f3ebb994178c1114a60412389f58
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
+a
+1src/main/java/com/nekitvp/iakova/ScreenLogic.java,2/b/2bba7a023a6192e4da2be0c96cff40eef091fba2
+b
+2src/main/java/com/nekitvp/iakova/Screen1Logic.java,4/8/486d92df4c0f23a0b13aa7fd0c6ae6a7b93aecc8
+b
+2src/main/java/com/nekitvp/iakova/Screen2Logic.java,8/6/865d7f440b043a8b8d8cf6d90804ce6499c44f14
+b
+2src/main/java/com/nekitvp/iakova/Screen4Logic.java,9/2/924b505bb8d7d99d92660ce56a339d2d9bc6040d
+b
+2src/main/java/com/nekitvp/iakova/Screen3Logic.java,7/e/7e09c94d368c972822c4161d86185a6002af72a3
+Z
+*src/main/java/com/nekitvp/iakova/Team.java,c/4/c49284172e6acac1abbde32de0f761eab4850c33

@@ -1,10 +1,14 @@
 
-‡
-java:S1659"DDeclare "screen2" and all following declarations on a separate line.(áÆü˜8¼®›ŒØ2J$da7c906d-5911-42f9-a38d-14866597c8a8
 
-java:S1659""GDeclare "teamScore2" and all following declarations on a separate line.(‚¯Šâüÿÿÿÿ8¾®›ŒØ2J$c14af59a-ed0c-42ec-b9e2-7c8a28c477d0
+java:S1659"GDeclare "teamScore2" and all following declarations on a separate line.(‚¯Šâüÿÿÿÿ8Ë ßÙ2J$98fbe6bc-94e4-40af-8212-ca1ca226f87f
 
-java:S1659&"FDeclare "teamName2" and all following declarations on a separate line.(“×ƒ•üÿÿÿÿ8¾®›ŒØ2J$59c1e1ee-0dee-48af-a94f-63e0cac9eaeb
+java:S1659"FDeclare "teamName2" and all following declarations on a separate line.(“×ƒ•üÿÿÿÿ8Ì ßÙ2J$ad0c9ac8-8323-4bb3-9960-d9224b440b86
 
-java:S1659)"FDeclare "teamCoin2" and all following declarations on a separate line.(¶×ë¸ùÿÿÿÿ8¿®›ŒØ2J$34bdcdce-5ac6-40bf-a160-b20365aacbea
-k	java:S108W")Either remove or fill this block of code.(”ì­è8Í®›ŒØ2J$3ee84df5-2956-489c-bd96-9d266c28d686
+java:S1659 "FDeclare "teamCoin2" and all following declarations on a separate line.(¶×ë¸ùÿÿÿÿ8Í ßÙ2J$805fc9af-ca70-4994-85c9-81c4082255c9
+‡
+java:S1659&"DDeclare "screen2" and all following declarations on a separate line.(½ø¤±8Í ßÙ2J$b258de6d-7aaa-4d93-ac0a-b7ac1f5b1c2a
+
+java:S16592"EDeclare "timerRed" and all following declarations on a separate line.(ÒùÌ–ûÿÿÿÿ8Í ßÙ2J$e52bcc06-a8ad-407f-b496-0691a4344d21
+l	java:S108š")Either remove or fill this block of code.(üØô8ã ßÙ2J$c11b63f8-d0b3-4185-bab4-8d748f501223
+K
+java:S1128")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ8Ø®ÜàÙ2
