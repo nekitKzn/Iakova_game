@@ -24,6 +24,7 @@ public class Screen4Logic implements ScreenLogic {
     private Timeline timeline;
     private long remainingTime = 20000;  // 20 секунд в миллисекундах
     private boolean running = false;
+    private boolean failStart = false;
 
     private Team selectedTeam;
     private Map<Team, Label> teamScoreLabels;
@@ -33,6 +34,7 @@ public class Screen4Logic implements ScreenLogic {
     private MediaPlayer answerPlayer;
     private MediaPlayer tickingPlayer;   // Звук тикания часов
     private MediaPlayer endPlayer;
+    private MediaPlayer failStartPlayer;
 
     public Screen4Logic(AnchorPane screenPane, Label timerLabelBrain, Label currentTeamLabel, Label bonusLabel,
                         Label teamScoreBrain1, Label teamScoreBrain2, Label teamScoreBrain3, Label teamScoreBrain4,
@@ -59,6 +61,10 @@ public class Screen4Logic implements ScreenLogic {
         Media endMedia = new Media(
                 Objects.requireNonNull(getClass().getResource("/sound/endTime.wav")).toExternalForm());
         endPlayer = new MediaPlayer(endMedia);
+
+        Media failStartPlayerMedia = new Media(
+                Objects.requireNonNull(getClass().getResource("/sound/falseStart.wav")).toExternalForm());
+        failStartPlayer = new MediaPlayer(failStartPlayerMedia);
 
         // Инициализируем MediaPlayer для звука тикания часов
         Media tickingMedia = new Media(
@@ -92,6 +98,8 @@ public class Screen4Logic implements ScreenLogic {
             bonusLabel.setText("");
             currentTeamLabel.setText("");
             resetTimer();
+            failStart = false;
+            running = false;
             return;
         }
 
@@ -109,7 +117,7 @@ public class Screen4Logic implements ScreenLogic {
 
         // Если нажата клавиша C и таймер не запущен,
         // то возобновляем, если уже начинался (remainingTime < 20000), иначе запускаем новый
-        if (code == KeyCode.C && !running) {
+        if (code == KeyCode.C && !running && !failStart) {
             if (remainingTime < 20000) {
                 resumeTimer();
             } else {
@@ -124,27 +132,35 @@ public class Screen4Logic implements ScreenLogic {
         if (isTeamKey(code)) {
             Team team = getTeamByKey(code);
             selectedTeam = team;
+
+            if (running && !failStart) {
+                pauseTimer();
+                if (team != null) {
+                    currentTeamLabel.setText("Отвечает " + team.getText() + " команда");
+                    // Перекрашиваем экран в цвет команды (цвет берется из enum Team)
+                    screenPane.setStyle("-fx-background-color: " + team.getColor() + ";");
+                    // Воспроизводим звук нажатия команды через MediaPlayer
+                    play(answerPlayer);
+                }
+                // Если оставшееся время меньше или равно 1 секунде, показываем bonusLabel
+                if (remainingTime <= 20000 && remainingTime >= 19000) {
+                    bonusLabel.setVisible(true);
+                    bonusLabel.setText("Ответ на ПЕРВОЙ секунде!");
+                } else {
+                    bonusLabel.setText("");
+                }
+
+            } else if (!running && !failStart && remainingTime == 20000) { // нажата команда но не запущен таймер
+                failStart = true;
+                currentTeamLabel.setText("Фальстарт " + team.getFailStart() + " команды!");
+                screenPane.setStyle("-fx-background-color: " + team.getColor() + ";");
+                play(failStartPlayer);
+            }
         }
 
         // Если таймер запущен и нажата клавиша команды, приостанавливаем таймер
         if (running && isTeamKey(code)) {
-            pauseTimer();
-            Team team = getTeamByKey(code);
-            if (team != null) {
-                currentTeamLabel.setText("Отвечает " + team.getText() + " команда");
-                // Перекрашиваем экран в цвет команды (цвет берется из enum Team)
-                screenPane.setStyle("-fx-background-color: " + team.getColor() + ";");
-                // Воспроизводим звук нажатия команды через MediaPlayer
-                play(answerPlayer);
-            }
-            // Если оставшееся время меньше или равно 1 секунде, показываем bonusLabel
-            if (remainingTime <= 20000 && remainingTime >= 19000) {
-                bonusLabel.setVisible(true);
-                bonusLabel.setText("Ответ на ПЕРВОЙ секунде!");
-            } else {
-                bonusLabel.setText("");
-            }
-            return;
+
         }
     }
 

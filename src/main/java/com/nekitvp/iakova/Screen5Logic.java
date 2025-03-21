@@ -70,6 +70,7 @@ public class Screen5Logic implements ScreenLogic {
             if (remainingTimeMillis <= 0) {
                 timeline.stop();
                 play(endPlayer);
+                stop(tickingPlayer);
                 running = false;
             }
         }));

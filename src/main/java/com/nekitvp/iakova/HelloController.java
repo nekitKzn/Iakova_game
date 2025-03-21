@@ -75,7 +75,6 @@ public class HelloController {
     @FXML
     private void initialize() {
 
-//        afishaImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/afisha.jpg")).toExternalForm()));
         logoImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/logo.png")).toExternalForm()));
 
         blackSquareImage.setImage(new Image(
@@ -122,8 +121,6 @@ public class HelloController {
 
     private void resizeElements(double width, double height) {
 
-//        afishaImage.setFitHeight(height);
-//        afishaImage.setFitWidth(width);
         blackSquareImage.setFitWidth(width / 2);
         blackSquareImage.setFitHeight(height / 2);
 
