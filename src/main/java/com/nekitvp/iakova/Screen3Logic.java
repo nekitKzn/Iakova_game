@@ -14,7 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class Screen3Logic implements ScreenLogic {
     private final AnchorPane screenPane;
@@ -30,6 +33,8 @@ public class Screen3Logic implements ScreenLogic {
     private long timerStartTime; // в наносекундах
     private boolean timerRunning = false;
 
+    private MediaPlayer tickingPlayer;   // Звук тикания часов
+
     // Общее количество команд, которые ожидаются (например, из enum Team)
     private final int totalTeams = Team.values().length;
 
@@ -44,6 +49,13 @@ public class Screen3Logic implements ScreenLogic {
         String imageUrl = Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/screen_background.jpg")).toExternalForm();
         // Устанавливаем фон по умолчанию при создании логики экрана
         screenPane.setStyle("-fx-background-image: url('" + imageUrl + "'); -fx-background-size: cover;");
+
+
+        // Инициализируем MediaPlayer для звука тикания часов
+        Media tickingMedia = new Media(
+                Objects.requireNonNull(getClass().getResource("/sound/clock.wav")).toExternalForm());
+        tickingPlayer = new MediaPlayer(tickingMedia);
+        tickingPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
         // Инициализация таймера (не запущен)
         initTimer();
@@ -75,12 +87,14 @@ public class Screen3Logic implements ScreenLogic {
         // Сброс экрана по нажатию N
         if (code == KeyCode.N) {
             resetScreen();
+            stop(tickingPlayer);
             return;
         }
 
         // Запуск таймера по нажатию C (если он ещё не запущен)
         if (code == KeyCode.C) {
             if (!timerRunning) {
+                play(tickingPlayer);
                 startTimer();
                 playStartSound();
             }
@@ -106,6 +120,7 @@ public class Screen3Logic implements ScreenLogic {
 
                 // Если все команды нажали кнопки – останавливаем таймер
                 if (pressedTeams.size() >= totalTeams) {
+                    stop(tickingPlayer);
                     stopTimer();
                     playEndSound();
                 }
@@ -180,5 +195,17 @@ public class Screen3Logic implements ScreenLogic {
     public void onScreenShow() {
         // При показе экрана сбрасываем последовательность и таймер
         resetScreen();
+    }
+
+    // Запускает воспроизведение MediaPlayer: останавливает, сбрасывает позицию и запускает
+    private void play(MediaPlayer player) {
+        player.stop();
+        player.seek(Duration.ZERO);
+        player.play();
+    }
+
+    // Останавливает MediaPlayer
+    private void stop(MediaPlayer player) {
+        player.stop();
     }
 }

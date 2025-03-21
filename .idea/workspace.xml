@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="082646ac-3999-4a89-9eba-506c11e6867a" name="Changes" comment="add screens">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova/screen_background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova/up.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/activation.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/clock.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/coin_drop.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/end.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/endTime.wav" afterDir="false" />
+    <list default="true" id="082646ac-3999-4a89-9eba-506c11e6867a" name="Changes" comment="add final version">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen5Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/2/526d41f7113af1f313c65f654de5f518d56feef5" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/2/526d41f7113af1f313c65f654de5f518d56feef5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
@@ -20,13 +13,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen2Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen2Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen3Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen3Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen4Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen4Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Team.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/coin_sound.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sound/coin_sound.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova/afisha.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova/afisha.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova/application.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova/application.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sound/team_press.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sound/team_press.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sound/timer_start.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sound/timer_start.wav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,32 +79,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.iakova [:HelloApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.iakova [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.iakova [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/nikitalobanov/IdeaProjects/iakova/src/main/resources/sound&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.iakova [:HelloApplication.main()].executor": "Run",
+    "Gradle.iakova [assemble].executor": "Run",
+    "Gradle.iakova [clean].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/nikitalobanov/IdeaProjects/iakova/src/main/resources/com/nekitvp/iakova",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova" />
       <recent name="$PROJECT_DIR$/src/main/resources/sound" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/nekitvp/iakova" />
       <recent name="$PROJECT_DIR$/src/main/resources/coin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -129,7 +117,20 @@
       <recent name="com.nekitvp.iakova" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Iakova_game [jlink]">
+  <component name="RunManager" selected="Application.HelloApplication">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.nekitvp.iakova.HelloApplication" />
+      <module name="iakova.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nekitvp.iakova.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Iakova_game [jlink]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -196,28 +197,6 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="iakova [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="assemble" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="iakova [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -241,19 +220,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.HelloApplication" />
       <item itemvalue="Gradle.Iakova_game [jlink]" />
       <item itemvalue="Gradle.Iakova_game [jpackageImage]" />
       <item itemvalue="Gradle.Iakova_game [jpackage]" />
-      <item itemvalue="Gradle.iakova [assemble]" />
       <item itemvalue="Gradle.iakova [clean]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Gradle.Iakova_game [jlink]" />
         <item itemvalue="Gradle.Iakova_game [jpackage]" />
         <item itemvalue="Gradle.Iakova_game [jpackageImage]" />
         <item itemvalue="Gradle.iakova [clean]" />
-        <item itemvalue="Gradle.iakova [assemble]" />
       </list>
     </recent_temporary>
   </component>
@@ -275,7 +254,7 @@
       <workItem from="1741966423380" duration="13870000" />
       <workItem from="1742485436017" duration="5152000" />
       <workItem from="1742538386787" duration="3000" />
-      <workItem from="1742538402277" duration="16608000" />
+      <workItem from="1742538402277" duration="20736000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <option name="closed" value="true" />
@@ -293,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742080516342</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add final version">
+      <option name="closed" value="true" />
+      <created>1742562565621</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742562565621</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,6 +300,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init commit" />
     <MESSAGE value="add screens" />
-    <option name="LAST_COMMIT_MESSAGE" value="add screens" />
+    <MESSAGE value="add final version" />
+    <option name="LAST_COMMIT_MESSAGE" value="add final version" />
   </component>
 </project>

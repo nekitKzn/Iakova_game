@@ -1,14 +1,16 @@
 
 
-java:S1659"GDeclare "teamScore2" and all following declarations on a separate line.(‚¯Šâüÿÿÿÿ8áÁê£Û2J$a2d60293-7cac-41cd-b55e-8fa2a45522ff
+java:S1659"GDeclare "teamScore2" and all following declarations on a separate line.(‚¯Šâüÿÿÿÿ8Í€õÑÛ2J$4bc32ed0-84e8-4d6d-bada-308b691bc1b0
 
-java:S1659"LDeclare "teamScoreBrain2" and all following declarations on a separate line.(ùˆí»8ŸºÅÛ2J$8654002c-f611-4710-a69c-8f41f3f9af53
+java:S1659"LDeclare "teamScoreBrain2" and all following declarations on a separate line.(ùˆí»8Í€õÑÛ2J$3ce1448e-2d82-4d77-886a-a5ef26a6f286
 
-java:S1659"FDeclare "teamName2" and all following declarations on a separate line.(“×ƒ•üÿÿÿÿ8áÁê£Û2J$48b1345b-19f6-4e4a-bdf3-4b540d5d1305
+java:S1659"FDeclare "teamName2" and all following declarations on a separate line.(“×ƒ•üÿÿÿÿ8Î€õÑÛ2J$44a4204f-7ca6-4748-bc37-bfa89c5d351a
 
-java:S1659!"FDeclare "teamCoin2" and all following declarations on a separate line.(¶×ë¸ùÿÿÿÿ8âÁê£Û2J$f0057a9c-77bb-4ef0-ad6a-a9b286eed8b9
-‡
-java:S1659'"DDeclare "screen2" and all following declarations on a separate line.(½ø¤±8âÁê£Û2J$2e01df20-14a0-4928-b4fe-e36d99346689
-l	java:S108£")Either remove or fill this block of code.(üØô8úÁê£Û2J$12ad7895-0da9-441d-9c6e-1faf0f18ac66
+java:S1659!"FDeclare "teamCoin2" and all following declarations on a separate line.(¶×ë¸ùÿÿÿÿ8Î€õÑÛ2J$5271c012-5361-4ae5-8fcf-739d0ea12667
+Œ
+java:S1659'"DDeclare "screen2" and all following declarations on a separate line.(»ã‘üÿÿÿÿ8Î€õÑÛ2J$e858afd0-b264-4d25-a03a-d01d3ed5401f
+ƒ	java:S125N"<This block of commented-out lines of code should be removed.(£ğİÍşÿÿÿÿ8Õ€õÑÛ2J$14fa8040-64ec-4348-bd20-b290baf4cb9b
+~	java:S125}"<This block of commented-out lines of code should be removed.(ÁÍ™…8ß€õÑÛ2J$c5909525-6390-4e48-95f5-af1f0178657b
+l	java:S108«")Either remove or fill this block of code.(üØô8ä€õÑÛ2J$c8446657-6f22-4d8b-ab87-f95e686c6b56
 t
-java:S1172ù"0Remove this unused method parameter "coinValue".(€ú8µ™±»Û2J$a430d5e7-6c33-4f93-93b3-05c4d6c4876b
+java:S1172"0Remove this unused method parameter "coinValue".(€ú8ì€õÑÛ2J$b2e31493-e005-4edd-84cd-f818f66d2a4c

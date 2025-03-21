@@ -11,6 +11,7 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <SplitPane dividerPositions="0.17" orientation="VERTICAL" prefHeight="540.0" prefWidth="765.0"
            xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.nekitvp.iakova.HelloController">
@@ -317,6 +318,22 @@
                                 </VBox>
                             </children>
                         </GridPane>
+                    </AnchorPane>
+
+                    <AnchorPane fx:id="screen5" style="-fx-background-color: black;">
+                        <children>
+                            <StackPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                <children>
+                                    <!-- Прямоугольник-фон для таймера -->
+                                    <Rectangle fx:id="timerBackground" fill="#444444" stroke="white" strokeWidth="3"
+                                               arcWidth="20" arcHeight="20" width="900" height="250" />
+                                    <!-- Таймер -->
+                                    <Label fx:id="timerScreen5Label" text="05:00"
+                                           style="-fx-font-family: 'Courier New'; -fx-font-size: 200px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                </children>
+                            </StackPane>
+                        </children>
                     </AnchorPane>
 
 

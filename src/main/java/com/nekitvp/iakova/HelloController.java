@@ -36,7 +36,7 @@ public class HelloController {
     @FXML
     private StackPane rootPane;
     @FXML
-    private AnchorPane screen1, screen2, screen3, screen4;
+    private AnchorPane screen1, screen2, screen3, screen4, screen5;
     // FXML-узлы для экрана 1 и 2
     @FXML
     private ImageView afishaImage;         // для экрана 1
@@ -44,6 +44,9 @@ public class HelloController {
     private ImageView logoImage;         // для экрана 1
     @FXML
     private Label teamResponseLabel;
+
+    @FXML
+    private Label timerScreen5Label;
 
     @FXML
     private ImageView blackSquareImage;      // для экрана 2
@@ -78,7 +81,7 @@ public class HelloController {
         blackSquareImage.setImage(new Image(
                 Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/squeue.png")).toExternalForm()));
 
-        screens = new Pane[] {screen1, screen2, screen3, screen4};
+        screens = new Pane[] {screen1, screen2, screen3, screen4, screen5};
         showScreen(0);
 
         teamScoreLabels = new Label[] {teamScore1, teamScore2, teamScore3, teamScore4, teamScore5, teamScore6,
@@ -102,7 +105,8 @@ public class HelloController {
                 new Screen3Logic(screen3),
                 new Screen4Logic(screen4, timerLabelBrain, currentTeamLabel, bonusLabel,
                         teamScoreBrain1, teamScoreBrain2, teamScoreBrain3, teamScoreBrain4,
-                        teamScoreBrain5, teamScoreBrain6, teamScoreBrain7, teamScoreBrain8, doublePointsLabel)
+                        teamScoreBrain5, teamScoreBrain6, teamScoreBrain7, teamScoreBrain8, doublePointsLabel),
+                new Screen5Logic(screen5, timerScreen5Label)
         };
         currentScreenLogic = screenLogics[0];
 
