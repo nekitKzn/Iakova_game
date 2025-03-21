@@ -72,7 +72,7 @@ public class HelloController {
     @FXML
     private void initialize() {
 
-        afishaImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/afisha.jpg")).toExternalForm()));
+//        afishaImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/afisha.jpg")).toExternalForm()));
         logoImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/logo.png")).toExternalForm()));
 
         blackSquareImage.setImage(new Image(
@@ -93,8 +93,11 @@ public class HelloController {
             updateScore(i);
         }
 
+        String imageUrl = Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/up.jpg")).toExternalForm();
+        scoreboardPane.setStyle("-fx-background-image: url('" + imageUrl + "'); -fx-background-size: cover;");
+
         screenLogics = new ScreenLogic[] {
-                new Screen1Logic(),
+                new Screen1Logic(screen1),
                 new Screen2Logic(screen2, blackSquareImage, teamResponseLabel),
                 new Screen3Logic(screen3),
                 new Screen4Logic(screen4, timerLabelBrain, currentTeamLabel, bonusLabel,
@@ -115,8 +118,8 @@ public class HelloController {
 
     private void resizeElements(double width, double height) {
 
-        afishaImage.setFitHeight(height);
-        afishaImage.setFitWidth(width);
+//        afishaImage.setFitHeight(height);
+//        afishaImage.setFitWidth(width);
         blackSquareImage.setFitWidth(width / 2);
         blackSquareImage.setFitHeight(height / 2);
 
@@ -154,6 +157,7 @@ public class HelloController {
                 showScreen((currentScreenIndex - 1 + screens.length) % screens.length);
                 currentScreenLogic = screenLogics[currentScreenIndex];
                 currentScreenLogic.onScreenShow();
+
             }
             case RIGHT -> {
                 showScreen((currentScreenIndex + 1) % screens.length);

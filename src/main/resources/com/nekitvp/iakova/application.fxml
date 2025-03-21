@@ -85,7 +85,7 @@
                         <!-- Команда 6 -->
                         <VBox GridPane.columnIndex="5" alignment="CENTER" spacing="5">
                             <children>
-                                <Label fx:id="teamName6" style="-fx-font-size: 28px; -fx-font-weight: bold;"
+                                <Label fx:id="teamName6" style="-fx-font-size: 23px; -fx-font-weight: bold;"
                                        text="Оранжевая" textFill="#e86734"/>
                                 <Label fx:id="teamScore6" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0"
                                        textFill="white"/>
@@ -95,7 +95,7 @@
                         <!-- Команда 7 -->
                         <VBox GridPane.columnIndex="6" alignment="CENTER" spacing="5">
                             <children>
-                                <Label fx:id="teamName7" style="-fx-font-size: 28px; -fx-font-weight: bold;"
+                                <Label fx:id="teamName7" style="-fx-font-size: 23px; -fx-font-weight: bold;"
                                        text="Фиолетовая" textFill="#982ce2"/>
                                 <Label fx:id="teamScore7" style="-fx-font-size: 36px; -fx-font-weight: bold;" text="0"
                                        textFill="white"/>
@@ -124,10 +124,12 @@
                            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <!-- Экран 1: Картинка афиши -->
-                    <AnchorPane fx:id="screen1" style="-fx-background-color: black;">
+                    <AnchorPane fx:id="screen1" style="-fx-background-image: url('/com/nekitvp/iakova/afisha.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;-fx-background-position: center center;">
                         <StackPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                            <ImageView fx:id="afishaImage" fitHeight="100.0" fitWidth="300.0" preserveRatio="true"/>
+                            <ImageView fx:id="afishaImage" fitHeight="100.0" fitWidth="300.0" preserveRatio="true"
+                                       visible="false"
+                            />
                         </StackPane>
                     </AnchorPane>
 
@@ -153,8 +155,7 @@
                                 style="-fx-background-image: url('/com/nekitvp/iakova/screen_background.jpg');
                    -fx-background-size: cover;
                    -fx-background-repeat: no-repeat;
-                   -fx-background-position: center center;;
-"
+                   -fx-background-position: center center;"
                                 xmlns="http://javafx.com/javafx"
                                 xmlns:fx="http://javafx.com/fxml">
                         <children>
@@ -178,7 +179,7 @@
                                                        AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
                                                 <children>
                                                     <Label fx:id="timerLabel" text="00:00.000"
-                                                           style="-fx-font-family: 'Courier New'; -fx-font-size: 100px; -fx-text-fill: white;"/>
+                                                           style="-fx-font-family: 'Courier New'; -fx-font-size: 80px; -fx-text-fill: white;"/>
                                                 </children>
                                             </StackPane>
                                         </children>
@@ -192,7 +193,7 @@
                                                   AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
                                                 <children>
                                                     <Label text="Последовательность команд"
-                                                           style="-fx-font-size: 28px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                                                           style="-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;"/>
                                                 </children>
                                             </VBox>
                                         </children>
@@ -222,56 +223,56 @@
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain1" text="Синяя"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain1" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain2" text="Красная"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain2" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain3" text="Зеленая"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain3" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain4" text="Серая"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain4" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                     </children>
                                 </VBox>
 
                                 <!-- Центральная колонка: Таймер, два Label сверху, логотип внизу и прямоугольник для "ДВОЙНЫЕ БАЛЛЫ" -->
-                                <VBox GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" alignment="CENTER" spacing="20">
+                                <VBox GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" alignment="CENTER" spacing="17">
                                     <children>
                                         <!-- Прямоугольник с надписью "ДВОЙНЫЕ БАЛЛЫ" (по умолчанию невидим) -->
                                         <Label fx:id="doublePointsLabel" text="ДВОЙНЫЕ БАЛЛЫ"
                                                visible="false"
-                                               style="-fx-font-size: 40px; -fx-text-fill: white; -fx-background-color: #444444; -fx-padding: 10;"/>
+                                               style="-fx-font-size: 22px; -fx-text-fill: white; -fx-background-color: #444444; -fx-padding: 10;"/>
                                         <!-- Label для отображения, какая команда отвечает -->
                                         <Label fx:id="currentTeamLabel" text=""
-                                               style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                         <!-- Label, который появляется при остановке таймера в пределах первой секунды -->
                                         <Label fx:id="bonusLabel" text=""
-                                               style="-fx-font-size: 60px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                               style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                         <!-- Большой таймер (формат SS:CS, например, 20:00) -->
                                         <Label fx:id="timerLabelBrain" text="20:00"
-                                               style="-fx-font-family: 'Courier New'; -fx-font-size: 300px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                               style="-fx-font-family: 'Courier New'; -fx-font-size: 175px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                         <!-- Логотип -->
-                                        <ImageView fx:id="logoImage" fitWidth="300" preserveRatio="true"
+                                        <ImageView fx:id="logoImage" fitWidth="200" preserveRatio="true"
                                                    style="-fx-effect: dropshadow(gaussian, white, 100, 0.8, -1, 0);"/>
                                     </children>
                                 </VBox>
@@ -283,33 +284,33 @@
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain5" text="Желтая"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain5" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain6" text="Оранжевая"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain6" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain7" text="Фиолетовая"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain7" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="10">
                                             <children>
                                                 <Label fx:id="teamNameBrain8" text="Розовая"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
                                                 <Label fx:id="teamScoreBrain8" text="0"
-                                                       style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                                       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;"/>
                                             </children>
                                         </VBox>
                                     </children>
@@ -317,8 +318,6 @@
                             </children>
                         </GridPane>
                     </AnchorPane>
-
-
 
 
 

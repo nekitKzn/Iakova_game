@@ -41,6 +41,10 @@ public class Screen3Logic implements ScreenLogic {
         this.timerLabel = (Label) screenPane.lookup("#timerLabel");
         this.sequenceVBox = (VBox) screenPane.lookup("#sequenceVBox");
 
+        String imageUrl = Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/screen_background.jpg")).toExternalForm();
+        // Устанавливаем фон по умолчанию при создании логики экрана
+        screenPane.setStyle("-fx-background-image: url('" + imageUrl + "'); -fx-background-size: cover;");
+
         // Инициализация таймера (не запущен)
         initTimer();
     }
@@ -114,7 +118,7 @@ public class Screen3Logic implements ScreenLogic {
     private void addTeamRectangle(Team team, int order, String time) {
         // Создаем StackPane как "прямоугольник" для команды
         StackPane rectPane = new StackPane();
-        rectPane.setPrefHeight(100);
+        rectPane.setPrefHeight(80);
         rectPane.setMaxWidth(800);
         // Используем цвет из enum Team
         rectPane.setStyle("-fx-background-color: " + team.getColor() +
@@ -122,7 +126,7 @@ public class Screen3Logic implements ScreenLogic {
 
         // Текст: "order - TEAM_NAME - TIME"
         Label label = new Label(order + " - " + team.getText() + " - " + time);
-        label.setStyle("-fx-font-size: 40px; -fx-text-fill: black; -fx-font-weight: bold;");
+        label.setStyle("-fx-font-size: 30px; -fx-text-fill: black; -fx-font-weight: bold;");
         label.setEffect(new DropShadow(5, 3, 3, Color.GRAY));
 
         rectPane.getChildren().add(label);
