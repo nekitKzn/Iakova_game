@@ -1,6 +1,5 @@
 package com.nekitvp.iakova;
 
-import java.net.URL;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -27,6 +26,8 @@ public class HelloController {
     @FXML
     private Label teamScore1, teamScore2, teamScore3, teamScore4, teamScore5, teamScore6, teamScore7, teamScore8;
     @FXML
+    private Label teamScoreBrain1, teamScoreBrain2, teamScoreBrain3, teamScoreBrain4, teamScoreBrain5, teamScoreBrain6, teamScoreBrain7, teamScoreBrain8, doublePointsLabel;
+    @FXML
     private Label teamName1, teamName2, teamName3, teamName4, teamName5, teamName6, teamName7, teamName8;
     @FXML
     private ImageView teamCoin1, teamCoin2, teamCoin3, teamCoin4, teamCoin5, teamCoin6, teamCoin7, teamCoin8;
@@ -40,14 +41,21 @@ public class HelloController {
     @FXML
     private ImageView afishaImage;         // для экрана 1
     @FXML
+    private ImageView logoImage;         // для экрана 1
+    @FXML
     private Label teamResponseLabel;
 
     @FXML
     private ImageView blackSquareImage;      // для экрана 2
 
-    // FXML-узлы для экран 4 (таймеры)
+    // Элементы нового экрана (screen4)
     @FXML
-    private Label timerBlue, timerRed, timerGreen, timerYellow, timerOrange, timerPurple, timerGray, timerPink;
+    private Label timerLabelBrain;         // Большой таймер
+    @FXML
+    private Label currentTeamLabel;   // "Отвечает: ..."
+    @FXML
+    private Label bonusLabel;         // Появляется при остановке таймера в пределах первой секунды
+
 
     private Pane[] screens;
     private int currentScreenIndex = 0;
@@ -65,7 +73,7 @@ public class HelloController {
     private void initialize() {
 
         afishaImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/afisha.jpg")).toExternalForm()));
-
+        logoImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/logo.png")).toExternalForm()));
 
         blackSquareImage.setImage(new Image(
                 Objects.requireNonNull(getClass().getResource("/com/nekitvp/iakova/squeue.png")).toExternalForm()));
@@ -89,8 +97,9 @@ public class HelloController {
                 new Screen1Logic(),
                 new Screen2Logic(screen2, blackSquareImage, teamResponseLabel),
                 new Screen3Logic(screen3),
-                new Screen4Logic(timerBlue, timerRed, timerGreen, timerYellow, timerOrange, timerPurple, timerGray,
-                        timerPink)
+                new Screen4Logic(screen4, timerLabelBrain, currentTeamLabel, bonusLabel,
+                        teamScoreBrain1, teamScoreBrain2, teamScoreBrain3, teamScoreBrain4,
+                        teamScoreBrain5, teamScoreBrain6, teamScoreBrain7, teamScoreBrain8, doublePointsLabel)
         };
         currentScreenLogic = screenLogics[0];
 
@@ -118,7 +127,7 @@ public class HelloController {
         KeyCode code = event.getCode();
         // Обработка командных клавиш для экранов (B, R, G, Y, O, P, M, F, а также 0)
         switch (code) {
-            case B, R, G, Y, O, P, M, F, DIGIT0, C -> currentScreenLogic.handleTeamKeyPress(event);
+            case B, R, G, Y, O, P, M, F, DIGIT0, C, N, A, Z-> currentScreenLogic.handleTeamKeyPress(event);
             case S -> {
                 Stage stage = (Stage) rootPane.getScene().getWindow();
                 stage.setFullScreen(true);
@@ -131,7 +140,7 @@ public class HelloController {
             case DIGIT6 -> selectedTeam = 5;
             case DIGIT7 -> selectedTeam = 6;
             case DIGIT8 -> selectedTeam = 7;
-            case UP -> animateCoinDrop(selectedTeam, 5);
+            case UP -> animateSingleFastCoinDrop(selectedTeam);
             case DOWN -> decreaseScore(selectedTeam);
             case F1 -> animateCoinDrop(selectedTeam, 10);
             case F2 -> animateCoinDrop(selectedTeam, 20);
@@ -201,59 +210,72 @@ public class HelloController {
     }
 
     private void animateCoinDrop(int team, int coinValue) {
-        String coinImageResource;
-        String coinSoundResource;
-        if (coinValue == 5) {
-            coinImageResource = "/coin.png";
-            coinSoundResource = "/coin_sound.mp3";
-        } else {
-            switch (coinValue) {
-                case 10 -> coinImageResource = "/coin/1.png";
-                case 20 -> coinImageResource = "/coin/2.png";
-                case 30 -> coinImageResource = "/coin/3.png";
-                case 40 -> coinImageResource = "/coin/4.png";
-                case 50 -> coinImageResource = "/coin/5.png";
-                case 60 -> coinImageResource = "/coin/6.png";
-                case 70 -> coinImageResource = "/coin/7.png";
-                case 80 -> coinImageResource = "/coin/8.png";
-                default -> coinImageResource = "/coin_special.png";
-            }
-            coinSoundResource = "/coin_sound.mp3";
+        // Определяем количество монет в зависимости от нажатой клавиши
+        int numberOfCoins = coinValue / 5; // Каждая монета дает 5 очков
+
+        // Загружаем звук для анимации
+        String coinSoundResource = "/sound/coin_drop.wav";
+        AudioClip sound = new AudioClip(Objects.requireNonNull(getClass().getResource(coinSoundResource)).toExternalForm());
+
+        // Позиции монет
+        Point2D targetScene = teamCoinImages[team].localToScene(0, 0);
+        Point2D target = scoreboardPane.sceneToLocal(targetScene);
+        double teamCoinWidth = teamCoinImages[team].getBoundsInLocal().getWidth();
+        double targetX = target.getX() + (teamCoinWidth - 30) / 2;  // Для монеты ширина 30 пикселей
+        double targetY = target.getY();
+
+        // Делаем падение монет в течение 4 секунд
+        double totalTime = 4000; // 4 секунды
+        double interval = totalTime / numberOfCoins; // Время между монетами
+        int rareCoins = (int) (numberOfCoins * 0.3);  // 30% монет будут редкими
+        int frequentCoins = numberOfCoins - rareCoins; // Оставшиеся монеты будут частыми
+
+        // Падающие монеты
+        for (int i = 0; i < rareCoins; i++) {
+            double delay = interval * i;
+            createFallingCoin(team, targetX, targetY, delay, 1, coinValue); // Передаем coinValue
         }
 
+        // Падающие монеты (частые)
+        for (int i = 0; i < frequentCoins; i++) {
+            double delay = interval * (rareCoins + i);
+            createFallingCoin(team, targetX, targetY, delay, 0.5, coinValue); // Передаем coinValue
+        }
+
+        // Добавляем звуковой эффект при падении монет
+        sound.play();
+    }
+
+    private void createFallingCoin(int team, double targetX, double targetY, double delay, double speedMultiplier, int coinValue) {
+        String coinImageResource = "/coin.png";  // Ресурс для монеты
         Image coinImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(coinImageResource)));
         ImageView fallingCoin = new ImageView(coinImage);
         fallingCoin.setFitWidth(30);
         fallingCoin.setFitHeight(30);
 
-        Point2D targetScene = teamCoinImages[team].localToScene(0, 0);
-        Point2D target = scoreboardPane.sceneToLocal(targetScene);
-        double teamCoinWidth = teamCoinImages[team].getBoundsInLocal().getWidth();
-        double fallingCoinWidth = fallingCoin.getFitWidth();
-        double targetX = target.getX() + (teamCoinWidth - fallingCoinWidth) / 2;
-        double targetY = target.getY();
-
+        // Начальная позиция монеты
         double startX = targetX;
         double startY = -fallingCoin.getFitHeight();
         fallingCoin.setLayoutX(startX);
         fallingCoin.setLayoutY(startY);
         scoreboardPane.getChildren().add(fallingCoin);
 
+        // Анимация
         double distance = targetY - startY;
-        TranslateTransition transition = new TranslateTransition(Duration.millis(500), fallingCoin);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000 * speedMultiplier), fallingCoin);
         transition.setFromY(0);
         transition.setToY(distance);
         transition.setInterpolator(Interpolator.EASE_IN);
+        transition.setDelay(Duration.millis(delay));  // Задержка между монетами
         transition.setOnFinished(event -> {
-            scoreboardPane.getChildren().remove(fallingCoin);
-            teamScores[team] += coinValue;
-            updateScore(team);
-            AudioClip sound = new AudioClip(
-                    Objects.requireNonNull(getClass().getResource(coinSoundResource)).toExternalForm());
-            sound.play();
+            scoreboardPane.getChildren().remove(fallingCoin);  // Убираем монету после падения
+            teamScores[team] += 5;  // Добавляем 5 очков за монету
+            updateScore(team);  // Обновляем счёт
         });
         transition.play();
     }
+
+
 
     private void decreaseScore(int team) {
         teamScores[team] = Math.max(0, teamScores[team] - 5);
@@ -263,5 +285,53 @@ public class HelloController {
     private void showScreen(int index) {
         currentScreenIndex = index;
         screens[index].toFront();
+    }
+
+    // Метод для анимации одного быстрого падения монеты
+    private void animateSingleFastCoinDrop(int team) {
+        // Загружаем короткий звук для быстрой анимации монеты
+        String coinFastSoundResource = "/sound/coin_sound.mp3";
+        AudioClip sound = new AudioClip(Objects.requireNonNull(getClass().getResource(coinFastSoundResource)).toExternalForm());
+
+        // Определяем позицию для падения монеты (на основе положения монеты команды)
+        Point2D targetScene = teamCoinImages[team].localToScene(0, 0);
+        Point2D target = scoreboardPane.sceneToLocal(targetScene);
+        double teamCoinWidth = teamCoinImages[team].getBoundsInLocal().getWidth();
+        double targetX = target.getX() + (teamCoinWidth - 30) / 2;
+        double targetY = target.getY();
+
+        // Создаем падение одной монеты
+        createSingleFallingCoin(team, targetX, targetY, 0);
+        sound.play();
+    }
+
+    // Метод для создания анимации одной монеты
+    private void createSingleFallingCoin(int team, double targetX, double targetY, double delay) {
+        String coinImageResource = "/coin.png";  // Ресурс изображения монеты
+        Image coinImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(coinImageResource)));
+        ImageView fallingCoin = new ImageView(coinImage);
+        fallingCoin.setFitWidth(30);
+        fallingCoin.setFitHeight(30);
+
+        // Начальная позиция монеты — чуть выше экрана
+        double startX = targetX;
+        double startY = -fallingCoin.getFitHeight();
+        fallingCoin.setLayoutX(startX);
+        fallingCoin.setLayoutY(startY);
+        scoreboardPane.getChildren().add(fallingCoin);
+
+        double distance = targetY - startY;
+        // Устанавливаем короткую длительность анимации (200 мс)
+        TranslateTransition transition = new TranslateTransition(Duration.millis(400), fallingCoin);
+        transition.setFromY(0);
+        transition.setToY(distance);
+        transition.setInterpolator(Interpolator.EASE_IN);
+        transition.setDelay(Duration.millis(delay));
+        transition.setOnFinished(event -> {
+            scoreboardPane.getChildren().remove(fallingCoin);  // Удаляем монету после анимации
+            teamScores[team] += 5;  // Добавляем 5 очков за монету
+            updateScore(team);    // Обновляем отображение счета
+        });
+        transition.play();
     }
 }

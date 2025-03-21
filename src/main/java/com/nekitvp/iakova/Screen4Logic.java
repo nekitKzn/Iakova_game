@@ -1,122 +1,247 @@
 package com.nekitvp.iakova;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.AudioClip;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.util.Objects;
 
 public class Screen4Logic implements ScreenLogic {
-    // Массив меток таймеров в порядке, соответствующем enum Team:
-    // (Team.values() предполагается в порядке: BLUE, RED, GREEN, YELLOW, ORANGE, PURPLE, GRAY, PINK)
-    private final Label[] timerLabels;
-    private final Timeline[] timelines;
-    // Накопленное время для каждого таймера (в миллисекундах)
-    private final long[] elapsedTimes;
-    // Звуки старта и остановки
-    private final AudioClip startSound;
-    private final AudioClip stopSound;
 
-    // Новые константы для увеличенных размеров таймеров
-    private static final String NORMAL_STYLE_TEMPLATE = "-fx-font-size: %dpx; -fx-font-family: 'Monospaced'; -fx-text-fill: black; -fx-background-color: %s; -fx-font-weight: bold; -fx-alignment: center;";
-    private static final int NORMAL_FONT_SIZE = 36;     // увеличенный размер шрифта
-    private static final int STOPPED_FONT_SIZE = 44;      // увеличенный размер при остановке
-    private static final double PREF_WIDTH = 220;         // увеличенная ширина таймера
-    private static final double PREF_HEIGHT = 80;         // увеличенная высота таймера
+    private AnchorPane screenPane;       // Корневой узел экрана для изменения фона
+    private Label timerLabelBrain;       // Большой таймер (формат "SS:CS")
+    private Label currentTeamLabel;      // "Отвечает <команда> команда"
+    private Label bonusLabel;            // Показывается, если таймер остановлен в пределах первой секунды
+    private Label doublePointsLabel;
+    private Timeline timeline;
+    private long remainingTime = 20000;  // 20 секунд в миллисекундах
+    private boolean running = false;
 
-    public Screen4Logic(Label timerBlue, Label timerRed, Label timerGreen, Label timerYellow,
-                        Label timerOrange, Label timerPurple, Label timerGray, Label timerPink) {
-        // Инициализация массива меток в том же порядке, что и Team.values()
-        this.timerLabels = new Label[]{ timerBlue, timerRed, timerGreen, timerYellow, timerOrange, timerPurple, timerGray, timerPink };
-        this.timelines = new Timeline[timerLabels.length];
-        this.elapsedTimes = new long[timerLabels.length];
+    private Team selectedTeam;
+    private Map<Team, Label> teamScoreLabels;
 
-        Team[] teams = Team.values();
-        for (int i = 0; i < timerLabels.length; i++) {
-            // Устанавливаем начальное значение таймера в формате MM:SS:ms
-            timerLabels[i].setText("00:00:000");
-            elapsedTimes[i] = 0;
-            // Устанавливаем фиксированные размеры, чтобы текст не смещался
-            timerLabels[i].setPrefWidth(PREF_WIDTH);
-            timerLabels[i].setPrefHeight(PREF_HEIGHT);
-            // Устанавливаем стиль с использованием цвета команды из enum Team
-            timerLabels[i].setStyle(String.format(NORMAL_STYLE_TEMPLATE, NORMAL_FONT_SIZE, teams[i].getColor()));
-            final int idx = i;
-            timelines[i] = new Timeline(new KeyFrame(Duration.millis(50), event -> {
-                elapsedTimes[idx] += 50;
-                long total = elapsedTimes[idx];
-                int minutes = (int) (total / 60000);
-                int seconds = (int) ((total % 60000) / 1000);
-                int millis = (int) (total % 1000);
-                timerLabels[idx].setText(String.format("%02d:%02d:%03d", minutes, seconds, millis));
-            }));
-            timelines[i].setCycleCount(Timeline.INDEFINITE);
-        }
+    // MediaPlayer'ы для звуков
+    private MediaPlayer timerStartPlayer;
+    private MediaPlayer answerPlayer;
+    private MediaPlayer tickingPlayer;   // Звук тикания часов
+    private MediaPlayer endPlayer;
 
-        // Загружаем звуковые эффекты (убедитесь, что файлы доступны по указанным путям)
-        startSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/sound/timer_start.wav")).toExternalForm());
-        stopSound  = new AudioClip(Objects.requireNonNull(getClass().getResource("/sound/timer_stop.wav")).toExternalForm());
+    public Screen4Logic(AnchorPane screenPane, Label timerLabelBrain, Label currentTeamLabel, Label bonusLabel,
+                        Label teamScoreBrain1, Label teamScoreBrain2, Label teamScoreBrain3, Label teamScoreBrain4,
+                        Label teamScoreBrain5, Label teamScoreBrain6, Label teamScoreBrain7, Label teamScoreBrain8,
+                        Label doublePointsLabel) {
+        this.screenPane = screenPane;
+        this.timerLabelBrain = timerLabelBrain;
+        this.currentTeamLabel = currentTeamLabel;
+        this.bonusLabel = bonusLabel;
+        this.doublePointsLabel  = doublePointsLabel;
+        updateTimerLabel();
+
+        // Инициализируем MediaPlayer для звука запуска таймера
+        Media timerMedia = new Media(
+                Objects.requireNonNull(getClass().getResource("/sound/timer_start.wav")).toExternalForm());
+        timerStartPlayer = new MediaPlayer(timerMedia);
+
+        // Инициализируем MediaPlayer для звука нажатия команды
+        Media answerMedia = new Media(
+                Objects.requireNonNull(getClass().getResource("/sound/answer.wav")).toExternalForm());
+        answerPlayer = new MediaPlayer(answerMedia);
+
+        // Инициализируем MediaPlayer для звука нажатия команды
+        Media endMedia = new Media(
+                Objects.requireNonNull(getClass().getResource("/sound/endTime.wav")).toExternalForm());
+        endPlayer = new MediaPlayer(endMedia);
+
+        // Инициализируем MediaPlayer для звука тикания часов
+        Media tickingMedia = new Media(
+                Objects.requireNonNull(getClass().getResource("/sound/clock.wav")).toExternalForm());
+        tickingPlayer = new MediaPlayer(tickingMedia);
+        tickingPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+        teamScoreLabels = new HashMap<>();
+        teamScoreLabels.put(Team.BLUE, teamScoreBrain1);
+        teamScoreLabels.put(Team.RED, teamScoreBrain2);
+        teamScoreLabels.put(Team.GREEN, teamScoreBrain3);
+        teamScoreLabels.put(Team.GRAY, teamScoreBrain4);
+        teamScoreLabels.put(Team.YELLOW, teamScoreBrain5);
+        teamScoreLabels.put(Team.ORANGE, teamScoreBrain6);
+        teamScoreLabels.put(Team.PURPLE, teamScoreBrain7);
+        teamScoreLabels.put(Team.PINK, teamScoreBrain8);
     }
 
+    private void updateScore(int delta) {
+        var label = teamScoreLabels.get(selectedTeam);
+        int score = Integer.valueOf(label.getText());
+        int result = Math.max(0, score + delta);
+        label.setText(String.valueOf(result));
+    }
     @Override
     public void handleTeamKeyPress(KeyEvent event) {
         KeyCode code = event.getCode();
-        // Если нажата клавиша 0 – сброс всех таймеров
+
+        // Сброс таймера на 20 секунд по нажатию клавиши N
+        if (code == KeyCode.N) {
+            bonusLabel.setText("");
+            currentTeamLabel.setText("");
+            resetTimer();
+            return;
+        }
+
+        if (code == KeyCode.A) {
+            updateScore(1);
+        }
+
+        if (code == KeyCode.Z) {
+            updateScore(-1);
+        }
+
         if (code == KeyCode.DIGIT0) {
-            resetTimers();
-            return;
+            doublePointsLabel.setVisible(!doublePointsLabel.isVisible());
         }
-        // Если нажата клавиша C – запуск всех таймеров
-        if (code == KeyCode.C) {
-            startAllTimers();
-            return;
-        }
-        // Останавливаем таймер для команды (порядок меток соответствует порядку в enum Team)
-        Team[] teams = Team.values();
-        for (int i = 0; i < timerLabels.length; i++) {
-            if (code == teams[i].getKey()) {
-                timelines[i].stop();
-                playStopSound();
-                break;
+
+        // Если нажата клавиша C и таймер не запущен,
+        // то возобновляем, если уже начинался (remainingTime < 20000), иначе запускаем новый
+        if (code == KeyCode.C && !running) {
+            if (remainingTime < 20000) {
+                resumeTimer();
+            } else {
+                startTimer();
             }
+            screenPane.setStyle("-fx-background-color: black;");
+            currentTeamLabel.setText("");
+            bonusLabel.setText("");
+            return;
+        }
+
+        if (isTeamKey(code)) {
+            Team team = getTeamByKey(code);
+            selectedTeam = team;
+        }
+
+        // Если таймер запущен и нажата клавиша команды, приостанавливаем таймер
+        if (running && isTeamKey(code)) {
+            pauseTimer();
+            Team team = getTeamByKey(code);
+            if (team != null) {
+                currentTeamLabel.setText("Отвечает " + team.getText() + " команда");
+                // Перекрашиваем экран в цвет команды (цвет берется из enum Team)
+                screenPane.setStyle("-fx-background-color: " + team.getColor() + ";");
+                // Воспроизводим звук нажатия команды через MediaPlayer
+                play(answerPlayer);
+            }
+            // Если оставшееся время меньше или равно 1 секунде, показываем bonusLabel
+            if (remainingTime <= 20000 && remainingTime >= 19000) {
+                bonusLabel.setVisible(true);
+                bonusLabel.setText("Ответ на ПЕРВОЙ секунде!");
+            } else {
+                bonusLabel.setText("");
+            }
+            return;
         }
     }
 
-    private void startAllTimers() {
-        for (Timeline timeline : timelines) {
+    private void startTimer() {
+        running = true;
+        remainingTime = 20000; // Начинаем с 20 секунд
+        currentTeamLabel.setText("");
+
+        // Воспроизводим звук запуска таймера
+        play(timerStartPlayer);
+        // Запускаем звук тикания часов
+        play(tickingPlayer);
+
+        timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
+            remainingTime -= 10;
+            updateTimerLabel();
+            if (remainingTime <= 0) {
+                stopTimer();
+                stop(tickingPlayer);
+                currentTeamLabel.setText("Время вышло!");
+                screenPane.setStyle("-fx-background-color: #797408;");
+                play(endPlayer);
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    // Останавливает таймер полностью
+    private void stopTimer() {
+        running = false;
+        if (timeline != null) {
+            timeline.stop();
+        }
+        stop(tickingPlayer);
+    }
+
+    // Приостанавливает таймер (например, при нажатии команды)
+    private void pauseTimer() {
+        if (timeline != null) {
+            timeline.pause();
+        }
+        stop(tickingPlayer);
+        running = false;
+    }
+
+    // Возобновляет таймер с того же места (только по нажатию C)
+    private void resumeTimer() {
+        if (timeline != null) {
             timeline.play();
         }
-        // При старте возвращаем нормальный стиль для всех таймеров
-        Team[] teams = Team.values();
-        for (int i = 0; i < timerLabels.length; i++) {
-            timerLabels[i].setStyle(String.format(NORMAL_STYLE_TEMPLATE, NORMAL_FONT_SIZE, teams[i].getColor()));
+        running = true;
+        play(tickingPlayer);
+    }
+
+    private void resetTimer() {
+        stopTimer();
+        remainingTime = 20000;
+        currentTeamLabel.setText("");
+        updateTimerLabel();
+        // Сбрасываем фон экрана на исходный (например, чёрный)
+        screenPane.setStyle("-fx-background-color: black;");
+    }
+
+    private void updateTimerLabel() {
+        int seconds = (int) (remainingTime / 1000);
+        int centiseconds = (int) ((remainingTime % 1000) / 10);
+        timerLabelBrain.setText(String.format("%02d:%02d", seconds, centiseconds));
+    }
+
+    private boolean isTeamKey(KeyCode code) {
+        for (Team team : Team.values()) {
+            if (team.getKey() == code) {
+                return true;
+            }
         }
-        playStartSound();
+        return false;
     }
 
-    private void resetTimers() {
-        for (int i = 0; i < timelines.length; i++) {
-            timelines[i].stop();
-            elapsedTimes[i] = 0;
-            timerLabels[i].setText("00:00:000");
-            timerLabels[i].setStyle(String.format(NORMAL_STYLE_TEMPLATE, NORMAL_FONT_SIZE, Team.values()[i].getColor()));
+    private Team getTeamByKey(KeyCode code) {
+        for (Team team : Team.values()) {
+            if (team.getKey() == code) {
+                return team;
+            }
         }
+        return null;
     }
 
-    private void playStartSound() {
-        startSound.play();
+    // Запускает воспроизведение MediaPlayer: останавливает, сбрасывает позицию и запускает
+    private void play(MediaPlayer player) {
+        player.stop();
+        player.seek(Duration.ZERO);
+        player.play();
     }
 
-    private void playStopSound() {
-        stopSound.play();
-    }
-
-    @Override
-    public void onScreenShow() {
-        resetTimers();
+    // Останавливает MediaPlayer
+    private void stop(MediaPlayer player) {
+        player.stop();
     }
 }

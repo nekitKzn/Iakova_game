@@ -41,8 +41,8 @@ b
 b
 2src/main/java/com/nekitvp/iakova/Screen2Logic.java,8/6/865d7f440b043a8b8d8cf6d90804ce6499c44f14
 b
-2src/main/java/com/nekitvp/iakova/Screen4Logic.java,9/2/924b505bb8d7d99d92660ce56a339d2d9bc6040d
-b
 2src/main/java/com/nekitvp/iakova/Screen3Logic.java,7/e/7e09c94d368c972822c4161d86185a6002af72a3
 Z
 *src/main/java/com/nekitvp/iakova/Team.java,c/4/c49284172e6acac1abbde32de0f761eab4850c33
+b
+2src/main/java/com/nekitvp/iakova/Screen4Logic.java,9/2/924b505bb8d7d99d92660ce56a339d2d9bc6040d

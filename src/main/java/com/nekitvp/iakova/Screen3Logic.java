@@ -1,6 +1,9 @@
 package com.nekitvp.iakova;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -11,103 +14,167 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
+import javafx.scene.paint.Color;
 
 public class Screen3Logic implements ScreenLogic {
     private final AnchorPane screenPane;
-    private final VBox vbox;
-    // Используем LinkedHashSet для сохранения порядка и исключения повторов
+    // Узлы, вынесенные в FXML:
+    private final Label timerLabel;
+    private final VBox sequenceVBox;
+
+    // Набор для фиксации уникальных нажатых команд
     private final Set<Team> pressedTeams;
+
+    // Таймер
+    private AnimationTimer animationTimer;
+    private long timerStartTime; // в наносекундах
+    private boolean timerRunning = false;
+
+    // Общее количество команд, которые ожидаются (например, из enum Team)
+    private final int totalTeams = Team.values().length;
 
     public Screen3Logic(AnchorPane screenPane) {
         this.screenPane = screenPane;
         this.pressedTeams = new LinkedHashSet<>();
 
-        // Создаем VBox, который будет располагать элементы по вертикали и центрироваться
-        vbox = new VBox();
-        vbox.setAlignment(Pos.TOP_CENTER);
-        vbox.setSpacing(10);
-        vbox.setPadding(new Insets(20));
+        // Получаем ссылки на узлы, определённые в FXML
+        this.timerLabel = (Label) screenPane.lookup("#timerLabel");
+        this.sequenceVBox = (VBox) screenPane.lookup("#sequenceVBox");
 
-        // Заголовок
-        Label header = new Label("Последовательность команд");
-        header.setStyle("-fx-font-size: 28px; -fx-text-fill: white; -fx-font-weight: bold;");
-        vbox.getChildren().add(header);
+        // Инициализация таймера (не запущен)
+        initTimer();
+    }
 
-        // Добавляем VBox в screenPane, заполняющий весь контейнер
-        screenPane.getChildren().clear();
-        AnchorPane.setTopAnchor(vbox, 0.0);
-        AnchorPane.setBottomAnchor(vbox, 0.0);
-        AnchorPane.setLeftAnchor(vbox, 0.0);
-        AnchorPane.setRightAnchor(vbox, 0.0);
-        screenPane.getChildren().add(vbox);
+    private void initTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                long elapsedNanos = now - timerStartTime;
+                double elapsedSeconds = elapsedNanos / 1_000_000_000.0;
+                timerLabel.setText(formatTime(elapsedSeconds));
+            }
+        };
+    }
+
+    // Форматирование времени в виде mm:ss.SSS
+    private String formatTime(double elapsedSeconds) {
+        int minutes = (int) (elapsedSeconds / 60);
+        int seconds = (int) (elapsedSeconds % 60);
+        int millis = (int) ((elapsedSeconds - (int) elapsedSeconds) * 1000);
+        return String.format("%02d:%02d.%03d", minutes, seconds, millis);
     }
 
     @Override
     public void handleTeamKeyPress(KeyEvent event) {
         KeyCode code = event.getCode();
-        // Если нажата клавиша 0 — сброс последовательности
-        if (code == KeyCode.DIGIT0) {
-            clearSequence();
+
+        // Сброс экрана по нажатию N
+        if (code == KeyCode.N) {
+            resetScreen();
             return;
         }
-        // Проходим по всем командам из enum Team
+
+        // Запуск таймера по нажатию C (если он ещё не запущен)
+        if (code == KeyCode.C) {
+            if (!timerRunning) {
+                startTimer();
+                playStartSound();
+            }
+            return;
+        }
+
+        // Если таймер не запущен, нажатия команд не обрабатываем
+        if (!timerRunning) {
+            return;
+        }
+
+        // Обработка нажатия клавиш для команд (из enum Team)
         for (Team team : Team.values()) {
             if (code == team.getKey()) {
-                // Если команда уже зафиксирована, игнорируем повторное нажатие
+                // Если команда уже была зафиксирована – игнорируем
                 if (pressedTeams.contains(team)) {
                     return;
                 }
-                // Добавляем команду в последовательность и отображаем её
                 pressedTeams.add(team);
-                addTeamRectangle(team, pressedTeams.size());
+                double elapsedSeconds = (System.nanoTime() - timerStartTime) / 1_000_000_000.0;
+                addTeamRectangle(team, pressedTeams.size(), formatTime(elapsedSeconds));
                 playTeamPressSound();
+
+                // Если все команды нажали кнопки – останавливаем таймер
+                if (pressedTeams.size() >= totalTeams) {
+                    stopTimer();
+                    playEndSound();
+                }
                 break;
             }
         }
     }
 
-    private void addTeamRectangle(Team team, int order) {
+    // Создание прямоугольника с информацией о команде и времени
+    private void addTeamRectangle(Team team, int order, String time) {
         // Создаем StackPane как "прямоугольник" для команды
         StackPane rectPane = new StackPane();
-        // Задаем размеры в 2 раза больше, чем ранее (50 -> 100, 400 -> 800)
         rectPane.setPrefHeight(100);
         rectPane.setMaxWidth(800);
-        // Фон задаем согласно цвету команды из enum
+        // Используем цвет из enum Team
         rectPane.setStyle("-fx-background-color: " + team.getColor() +
                 "; -fx-border-color: black; -fx-border-width: 2;");
 
-        // Создаем метку с текстом "order - TEAM_TEXT" (например, "1 - КРАСНАЯ")
-        Label label = new Label(order + " - " + team.getText());
+        // Текст: "order - TEAM_NAME - TIME"
+        Label label = new Label(order + " - " + team.getText() + " - " + time);
         label.setStyle("-fx-font-size: 40px; -fx-text-fill: black; -fx-font-weight: bold;");
-        // При желании можно добавить DropShadow для эффектности:
-        label.setEffect(new DropShadow(5, 3, 3, javafx.scene.paint.Color.GRAY));
+        label.setEffect(new DropShadow(5, 3, 3, Color.GRAY));
 
         rectPane.getChildren().add(label);
-        // Добавляем прямоугольник в VBox
-        vbox.getChildren().add(rectPane);
+        // Добавляем прямоугольник в VBox (правую часть)
+        sequenceVBox.getChildren().add(rectPane);
     }
 
+    // Проигрываем звук при нажатии команды
     private void playTeamPressSound() {
-        // Предполагается, что звук расположен по пути /sound/team_press.wav в ресурсах
         AudioClip clip = new AudioClip(
                 Objects.requireNonNull(getClass().getResource("/sound/team_press.wav")).toExternalForm());
         clip.play();
     }
 
-    private void clearSequence() {
+    private void playEndSound() {
+        AudioClip clip = new AudioClip(
+                Objects.requireNonNull(getClass().getResource("/sound/end.wav")).toExternalForm());
+        clip.play();
+    }
+    private void playStartSound() {
+        AudioClip clip = new AudioClip(
+                Objects.requireNonNull(getClass().getResource("/sound/timer_start.wav")).toExternalForm());
+        clip.play();
+    }
+
+    // Сброс экрана: очищаем последовательность и сбрасываем таймер
+    private void resetScreen() {
         pressedTeams.clear();
-        // Оставляем только заголовок (на позиции 0)
-        if (vbox.getChildren().size() > 1) {
-            vbox.getChildren().remove(1, vbox.getChildren().size());
+        // Оставляем только заголовок (предполагается, что он первый элемент VBox)
+        if (sequenceVBox.getChildren().size() > 1) {
+            sequenceVBox.getChildren().remove(1, sequenceVBox.getChildren().size());
         }
+        stopTimer();
+        timerLabel.setText("00:00.000");
+    }
+
+    // Запуск таймера
+    private void startTimer() {
+        timerStartTime = System.nanoTime();
+        timerRunning = true;
+        animationTimer.start();
+    }
+
+    // Остановка таймера
+    private void stopTimer() {
+        timerRunning = false;
+        animationTimer.stop();
     }
 
     @Override
     public void onScreenShow() {
-        // При показе экрана сбрасываем последовательность команд
-        clearSequence();
+        // При показе экрана сбрасываем последовательность и таймер
+        resetScreen();
     }
 }

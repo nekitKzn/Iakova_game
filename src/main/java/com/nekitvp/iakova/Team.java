@@ -4,14 +4,14 @@ import javafx.scene.input.KeyCode;
 
 public enum Team {
 
-    BLUE("Синяя команда", "#1E90FF", "СИНЯЯ", KeyCode.B),
-    RED("Красная команда", "#ad3333", "КРАСНАЯ", KeyCode.R),
-    GREEN("Зеленая команда", "#4f6b34", "ЗЕЛЕНАЯ", KeyCode.G),
-    YELLOW("Желтая команда", "#FFD700", "ЖЕЛТАЯ", KeyCode.Y),
-    ORANGE("Оранжевая команда", "#FF8C00", "ОРАНЖЕВАЯ", KeyCode.O),
+    BLUE("Синяя команда", "#2f3386", "СИНЯЯ", KeyCode.B),
+    RED("Красная команда", "#a41515", "КРАСНАЯ", KeyCode.R),
+    GREEN("Зеленая команда", "#15a02f", "ЗЕЛЕНАЯ", KeyCode.G),
+    YELLOW("Желтая команда", "#e9f163", "ЖЕЛТАЯ", KeyCode.Y),
+    ORANGE("Оранжевая команда", "#e86734", "ОРАНЖЕВАЯ", KeyCode.O),
     PURPLE("Фиолетовая команда", "#8A2BE2", "ФИОЛЕТОВАЯ", KeyCode.P),
-    GRAY("Серая команда", "#808080", "СЕРАЯ", KeyCode.M),
-    PINK("Розовая команда", "#FF1493", "РОЗОВАЯ", KeyCode.F);
+    GRAY("Серая команда", "#a5a5a9", "СЕРАЯ", KeyCode.M),
+    PINK("Розовая команда", "#e829b4", "РОЗОВАЯ", KeyCode.F);
 
     private final String name;
     private final String color;
