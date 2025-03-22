@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="082646ac-3999-4a89-9eba-506c11e6867a" name="Changes" comment="добавил скрин таймера">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/falseStart.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen4Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen4Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen5Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Screen5Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nekitvp/iakova/Team.java" afterDir="false" />
-    </list>
+    <list default="true" id="082646ac-3999-4a89-9eba-506c11e6867a" name="Changes" comment="добавил фальстарт" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -250,7 +243,7 @@
       <workItem from="1741966423380" duration="13870000" />
       <workItem from="1742485436017" duration="5152000" />
       <workItem from="1742538386787" duration="3000" />
-      <workItem from="1742538402277" duration="24206000" />
+      <workItem from="1742538402277" duration="24677000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <option name="closed" value="true" />
@@ -292,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742587947291</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="добавил фальстарт">
+      <option name="closed" value="true" />
+      <created>1742593885175</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1742593885175</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,6 +315,7 @@
     <MESSAGE value="add screens" />
     <MESSAGE value="add final version" />
     <MESSAGE value="добавил скрин таймера" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавил скрин таймера" />
+    <MESSAGE value="добавил фальстарт" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавил фальстарт" />
   </component>
 </project>
